@@ -1,0 +1,18 @@
+###Plot of Distance against Age for each female
+library(nlme)
+data(Orthodont)
+Orthodont$Subject <- as.character(Orthodont$Subject)
+Orthodont.sub = subset(Orthodont, Orthodont$Sex == "Female")
+Orthodont.sub$Subject <- factor(Orthodont.sub$Subject, levels = c("F01", "F02", "F03", 
+                              "F04", "F05", "F06", "F07", "F08", "F09", "F10", "F11"))
+ggplot(Orthodont.sub, aes(age, distance)) + 
+    geom_line() + 
+    geom_point() +
+    facet_wrap(~Subject, ncol=6) + 
+    theme_bw() +
+    theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        strip.background = element_blank(),
+        panel.border = element_rect(colour = "black"))+ 
+  	xlab("Age (year)") +
+  	ylab("Distance from Pituitary to Pterygomaxillary Fissure (mm)")
